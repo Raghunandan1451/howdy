@@ -1,0 +1,22 @@
+.nav__bar {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: #181bb8;
+
+	position: fixed;
+	top: 0;
+	width: 100vw;
+}
+
+.nav__header {
+	font-size: 1.3rem;
+}
+
+.nav__header,
+.nav__link {
+	color: #ddccee;
+	padding: 0.5rem;
+	cursor: pointer;
+	text-decoration: none;
+}

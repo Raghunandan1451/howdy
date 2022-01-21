@@ -1,0 +1,63 @@
+.component__container {
+	position: relative;
+	top: calc(0vh + 2.7rem);
+	display: flex;
+	color: #000000;
+}
+
+.left__container {
+	flex: 1;
+	display: flex;
+	justify-content: flex-start;
+	flex-direction: column;
+}
+.toggle_item_container {
+	display: flex;
+	justify-content: space-evenly;
+}
+
+.toggle__item {
+	width: 8rem;
+	text-align: center;
+	padding: 0.5rem;
+	background-color: #777;
+	color: #fff;
+	cursor: pointer;
+}
+
+.active {
+	background-color: #fff;
+	color: #000;
+}
+
+.instruction {
+	width: 30vw;
+	height: calc(100vh - 2.7rem);
+	border-left: 1px solid #000000;
+}
+
+.instruction__list {
+	border-bottom: 1px solid #000000;
+}
+
+.header__design {
+	font-size: large;
+	padding: 0.5rem;
+	border-bottom: 1px solid #5a5a5a;
+	text-align: center;
+	cursor: default;
+}
+
+.instruction__line {
+	margin-left: 0.5rem;
+	line-height: 1.2rem;
+	font-weight: lighter;
+	padding: 0.5rem 0;
+}
+
+.list__design {
+	font-size: large;
+	padding: 1rem;
+	border-bottom: 1px solid #5a5a5a;
+	cursor: pointer;
+}
