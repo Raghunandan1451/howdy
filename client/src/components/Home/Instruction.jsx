@@ -4,26 +4,6 @@ import React, { Fragment } from 'react'
 
 function Instruction() {
 
-	// const {auth} = useSelector(state => state)
-	// const [online, setOnline] = useState([]);
-
-	// useEffect(() => {
-	// 	const getOnlineUsers = () => {
-	// 		try {
-	// 			onlineUsers.forEach(async (socketUsers, index) => {
-	// 				if(socketUsers.userId !== auth.user._id) {
-	// 					const resp = await axios.get(`/api/user?userId=${socketUsers.userId}`)
-	// 					setOnline(resp.data);
-	// 				}
-	// 			})
-	// 		} catch (error) {
-	// 			console.log(error);
-	// 		}
-	// 	}
-	// 	getOnlineUsers();
-	// }, [onlineUsers, auth]);
-
-
 	return (
 		<div className='instruction'>
 			<Fragment>

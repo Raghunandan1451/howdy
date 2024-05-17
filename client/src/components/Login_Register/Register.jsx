@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import { register } from '../../redux/actions/authAction'
 import Navbar from '../Navbar/Navbar'
@@ -12,7 +12,7 @@ function Signup() {
 
 	const { auth } = useSelector(state => state)
 	const dispatch = useDispatch()
-	const history = useHistory()
+	const navigate = useNavigate()
 
 	const initialState = { 
 		username: '', email: '', password: '', cf_password: ''
@@ -23,8 +23,8 @@ function Signup() {
 
 
 	useEffect(() => {
-		if(auth.token) history.push("/")
-	}, [auth.token, history])
+		if(auth.token) navigate("/")
+	}, [auth.token, navigate])
 
 	
 	const handleChangeInput = e => {

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import {BrowserRouter as Router, Route} from 'react-router-dom'
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
 import Home from './components/Home/Home';
@@ -22,10 +22,12 @@ const App = () => {
 
 	return (
 		<Router>
-			<Route exact path="/" component={auth.token ? Home : Login } />
-			<Route path="/register" component={Register} />
-			<Route path="/contact" component={Contact} />
-			<Route path="/chat" component={ChatList} />
+			<Routes>
+				<Route path="/" element={auth.token ? <Home /> : <Login /> } />
+				<Route path="/register" element={<Register/>} />
+				<Route path="/contact" element={<Contact/>} />
+				<Route path="/chat" element={<ChatList/>} />
+			</Routes>
 		</Router>
 	);
 };
