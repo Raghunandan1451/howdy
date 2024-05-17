@@ -7,15 +7,18 @@ import './contact.css'
 import { filtered } from '../../utils/filtered'
 import {getDataAPI} from '../../utils/fetchData'
 
+// Main function component
 function Contact() {
 
+	// States
 	const [contacts, setContacts] = useState(null)
 	const [exists, setExists] = useState(false)
 
+	// Redux state
 	const {auth} = useSelector(state => state)
 
+	// Fetch user data from API on component mount
 	useEffect(() => {
-
 		const getUserData = async () => {
 			try {
 				const resp = await axios.get('/api/users')
@@ -27,16 +30,20 @@ function Contact() {
 		getUserData()
 	}, [])
 	
-	const handleSubmit = (e) => {
+	// Submit handler
+	const handleSubmit = async (e) => {
 		e.preventDefault()
 
+		// Get receiver ID from clicked element
 		let receiverId = e.target.getAttribute('data_id');
 
+		// Prepare user data
 		const userData = {
 			senderId: auth.user._id,
 			receiverId,
 		}
 
+		// Check if conversation exists
 		const getExists = async () => {
 			const res = await getDataAPI('conversations', auth.user._id)
 			const val = filtered(res)
@@ -45,6 +52,7 @@ function Contact() {
 
 		getExists()
 
+		// Post user data if conversation does not exist
 		const postUserData = async (exist) => {
 			try {
 				if(exist) {
@@ -61,9 +69,12 @@ function Contact() {
 		postUserData(exists)
 	
 	}
+	
+	// Return JSX
 	return (
 		<React.Fragment>
-			{contacts && contacts.map((list, index) => {
+			{/* Map over contacts and render List component for each */
+			contacts && contacts.map((list, index) => {
 				return (list._id !== auth.user._id ) ? 
 					<div key={index}>
 						<List list={list} click={handleSubmit} />

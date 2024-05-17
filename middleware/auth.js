@@ -1,23 +1,29 @@
-const Users = require("../models/userModel")
-const jwt = require('jsonwebtoken')
+const Users = require("../models/userModel") // Importing userModel to interact with the database
+const jwt = require('jsonwebtoken') // Importing jsonwebtoken for token verification
 
+/**
+ * Authentication middleware
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @param {Function} next - Express next function
+ * @returns {Object} JSON response or calls the next function
+ */
 const auth = async (req, res, next) => {
     try {
-        const token = req.header("Authorization")
+        const token = req.header("Authorization") // Extracting token from the request header
 
-        if(!token) return res.status(400).json({msg: "Invalid Authentication."})
+        if(!token) return res.status(400).json({msg: "Invalid Authentication."}) // Checking if token exists
 
-        const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
-        if(!decoded) return res.status(400).json({msg: "Invalid Authentication."})
+        const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET) // Verifying the token
+        if(!decoded) return res.status(400).json({msg: "Invalid Authentication."}) // Checking if token is valid
 
-        const user = await Users.findOne({_id: decoded.id})
+        const user = await Users.findOne({_id: decoded.id}) // Finding user by the decoded token id
         
-        req.user = user
-        next()
+        req.user = user // Adding user to the request object
+        next() // Calling the next function
     } catch (err) {
-        return res.status(500).json({msg: err.message})
+        return res.status(500).json({msg: err.message}) // Returning error message if any error occurs
     }
 }
 
-
-module.exports = auth
+module.exports = auth // Exporting the authentication middleware

@@ -7,15 +7,21 @@ import MessageDisplay from './MessageDisplay'
 import { SocketContext } from '../../utils/socketClient'
 import Top from './Top'
 
+/**
+ * Conversation component is responsible for displaying and handling messages in a conversation.
+ * It receives data from the Redux store and socket context.
+ */
 function Conversation() {
-
+	// Initialize state variables
 	const [newMessage, setNewMessage] = useState('')
 	const [messages, setMessages] = useState([])
 	const [arrivalMessage, setArrivalMessage] = useState(null)
 
+	// Select necessary data from Redux store
 	const { auth, access } = useSelector(state => state)
 	const socket = useContext(SocketContext)
 
+	// Handle incoming messages from socket
 	useEffect(() => {
 		socket.on("getMessages", (data) => {
 			setArrivalMessage({
@@ -25,17 +31,18 @@ function Conversation() {
 			});
 		});
 
-		// return () => socket.off('getMessages')
-
+		// Clean up effect
+		return () => socket.off('getMessages')
 	}, [socket])
 
-
+	// Add incoming messages to the message list
 	useEffect(() => {
 		arrivalMessage &&
 		access?.members.includes(arrivalMessage.sender) &&
 		setMessages((prev) => [...prev, arrivalMessage]);
 	}, [arrivalMessage, access]);
 
+	// Fetch messages on conversation change
 	useEffect(() => {
 		const getMessages = async () => {
 			try{
@@ -51,6 +58,7 @@ function Conversation() {
 		getMessages()
 	}, [access])
 
+	// Handle form submission and send message
 	const handleSubmit = async (e) => {
 		e.preventDefault()
 
@@ -83,13 +91,14 @@ function Conversation() {
 				<Fragment>
 					<Top />
 					<div className='contain__messages'>
+						{/* Map over messages and render MessageDisplay component for each message */}
 						{messages.map((msg, index) => {
 							return (
-									<MessageDisplay
-										key={index} 
-										own={msg.sender === auth.user._id} 
-										message={msg} 
-									/>
+								<MessageDisplay
+									key={index} 
+									own={msg.sender === auth.user._id} 
+									message={msg} 
+								/>
 							)
 						})}
 					</div>

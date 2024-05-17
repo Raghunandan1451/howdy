@@ -10,28 +10,34 @@ import './form.css'
 
 function Signup() {
 
+	// Get auth state and dispatch from Redux store
 	const { auth } = useSelector(state => state)
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 
+	// Set initial state for userData
 	const initialState = { 
 		username: '', email: '', password: '', cf_password: ''
 	}
 	
+	// State for user input
 	const [userData, setUserData] = useState(initialState)
 	const { username, email, password, cf_password } = userData
 
 
+	// Redirect to home page if user already logged in
 	useEffect(() => {
 		if(auth.token) navigate("/")
 	}, [auth.token, navigate])
 
 	
+	// Handle change in input fields
 	const handleChangeInput = e => {
 		const { name, value } = e.target
 		setUserData({...userData, [name]:value})
 	}
 
+	// Handle form submission
 	const handleSubmit = e => {
 		e.preventDefault()
 		dispatch(register(userData))
