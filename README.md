@@ -19,4 +19,3 @@
 
 Use `npm run dev` in root directory to start the app.
 
-`Still Incomplete`
